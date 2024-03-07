@@ -52,9 +52,9 @@ It is also possible to execute the individual test classes by specifying the spe
 ### Overview
 
 The project assumes that you have read and understood the following sections in the Distributed system book:
-- Section 6.2 - Distributed hash tables (DHT) (Naming)
-- Section 5.3 - Mutual Exclusion Distributed algorithm (Coordination)
-- Section 7.5 - Remote-write protocols (Consistency and Replication)
+- Section 6.2.3 - Distributed hash tables (DHT) (Naming)
+- Section 5.3.3 - Mutual Exclusion Distributed algorithm (Coordination)
+- Section 7.5.1 - Remote-write protocols (Consistency and Replication)
 
 Therefore the project builds on exercise in week 6 - Chord Distributed Hash Table (https://github.com/selabhvl/dat110public/blob/master/week6/week6.md)
 
