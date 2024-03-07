@@ -1,6 +1,6 @@
 ### Project 3 - Weeks 12 to 15: 18/03 - 14/04
 
-### DHT Cooperative Mirroring with consistency protocol and Distributed Mutual Exclusion.
+### DHT Cooperative Mirroring with Consistency Protocol and Distributed Mutual Exclusion.
 
 ### Organisation
 
