@@ -1,4 +1,4 @@
-### Project 3 - Weeks 12 to 15: 19/03 - 15/04
+### Project 3 - Weeks 12 to 15: 18/03 - 14/04
 
 ### DHT Cooperative Mirroring with consistency protocol and Distributed Mutual Exclusion.
 
@@ -18,7 +18,7 @@ The deadline for handing in the project can be found in Canvas.
 
 One member of the group should start by entering the following repository on github:
 
-https://github.com/lmkr/dat110-project3-dht-startcode
+https://github.com/selabhvl/dat110-project3-dht-startcode
 
 and choose '*Use this template*' (see button in the upper right of the repository web page).
 
@@ -52,8 +52,8 @@ It is also possible to execute the individual test classes by specifying the spe
 ### Overview
 
 The project assumes that you have read and understood the following sections in the Distributed system book:
-- Section 5.2 - Distributed hash tables (DHT) (Naming)
-- Section 6.3 - Mutual Exclusion Distributed algorithm (Coordination)
+- Section 6.2 - Distributed hash tables (DHT) (Naming)
+- Section 5.3 - Mutual Exclusion Distributed algorithm (Coordination)
 - Section 7.5 - Remote-write protocols (Consistency and Replication)
 
 Therefore the project builds on exercise in week 6 - Chord Distributed Hash Table (https://github.com/selabhvl/dat110public/blob/master/week6/week6.md)
@@ -61,7 +61,7 @@ Therefore the project builds on exercise in week 6 - Chord Distributed Hash Tabl
 The implementation is based on synchronous communication by using the Java RMI remote procedure call (RPC)
 The system works under these models and assumptions
 - Our protocol uses strict, sequential consistency model and replicated write protocol. In addition, it uses a distributed mutual exclusion algorithm.
-- We assume no message loss during communications
+- We assume no message delay, loss or packet corruption during communications
 - We assume that network is stable and there is no communication failure
 
 A DHT can be used to build a cooperative mirroring peer-to-peer distributed system in which multiple providers of content cooperate to store and serve each others’ data.
