@@ -54,7 +54,7 @@ It is also possible to execute the individual test classes by specifying the spe
 The project assumes that you have read and understood the following sections in the Distributed system book:
 - Section 6.2.3 - Distributed hash tables (DHT) (Naming)
 - Section 5.3.3 - Mutual Exclusion Distributed algorithm (Coordination)
-- Section 7.5.1 - Remote-write protocols (Consistency and Replication)
+- Section 7.5.1 - Remote-write & Replicated-write protocols (Consistency and Replication)
 
 Therefore the project builds on exercise in week 6 - Chord Distributed Hash Table (https://github.com/selabhvl/dat110public/blob/master/week6/week6.md)
 
@@ -126,7 +126,7 @@ test0, test1, test2, test3. Each replica will now be named using the hash functi
  
 #### Task 3 - Lookup logic, fingerTable and findSuccessor methods
 The findSuccessor(id) method is a core method in the DHT system for recursively or iteratively resolving (looking up) a key from any node/peer. The first important task you must solve here before implementing the findsuccessor functions is to implement the logic to check the rule: lower <= id <= upper in the checkInterval() method in the Util class. For example, in mod 10, we check whether 9 lies between 6 and 2. It means id = 9, lower = 6 and upper = 2. (6, 2) in mod 10 = {6, 7, 8, 9, 0, 1, 2}. Your logic should return true. Further, we can check if id=6 lies between (6, 2). A correct implementation will return true. 
-You may need to read pg. 247-249 of the DS book and the original paper on chord system. The paper is on Canvas. 
+You may need to read pg. 333-336 of the DS book and the original paper on chord system. The paper is on Canvas. 
 After you have successfully implemented the checkInterval logic, you can then implement the fixFingerTable method in the ChordProtocols and the findSuccessor method in the ChordLookup class. To correctly implement the findSuccessor function, you need to maintain a finger table for each node and also implement findHighestPredecessor method that uses the finger table to find the closest predecessor peer to a key. The three methods work hand-in-hand. For example, if fixFingerTable is incorrectly implemented, findSuccessor will be wrong and vice-versa. 
  - Testing:
    - IDE: Run the TestCheckInterval, TestFindSuccessor, and TestFingerTable
