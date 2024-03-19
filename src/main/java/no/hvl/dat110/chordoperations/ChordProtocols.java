@@ -182,7 +182,7 @@ public class ChordProtocols {
 			BigInteger nodeId = chordnode.getNodeID();
 
 			for(int i = 0; i<mbit; i++) {
-				BigInteger k = nodeId.add(BigInteger.valueOf(2).pow(i)).mod(addressSize).pow(2);
+				BigInteger k = nodeId.add(BigInteger.valueOf(2).pow(i)).mod(addressSize);
 
 				NodeInterface succnode = chordnode.findSuccessor(k);
 
