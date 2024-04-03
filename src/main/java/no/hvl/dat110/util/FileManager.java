@@ -103,6 +103,29 @@ public class FileManager {
     	// call the saveFileContent() on the successor and set isPrimary=true if logic above is true otherwise set isPrimary=false
     	
     	// increment counter
+
+		createReplicaFiles();
+		for(int i = 0; i<numReplicas; i++) {
+			BigInteger replicaId = replicafiles[i];
+			NodeInterface responsibleSucc = chordnode.findSuccessor(replicaId);
+
+			boolean isPrimary = (i == index);
+
+			try {
+				if(responsibleSucc != null) {
+					responsibleSucc.addKey(replicaId);
+					responsibleSucc.saveFileContent(filename,replicaId,bytesOfFile,isPrimary);
+					isPrimary = true;
+					counter++;
+				} else{
+					logger.error("No responsible peer found for replica ID: " + replicaId);
+					isPrimary = false;
+				}
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+
 		return counter;
     }
 	
@@ -128,7 +151,28 @@ public class FileManager {
 		// get the metadata (Message) of the replica from the successor (i.e., active peer) of the file
 		
 		// save the metadata in the set activeNodesforFile.
-		
+
+		createReplicaFiles();
+		for(int i = 0; i<numReplicas; i++){
+			BigInteger replicaId = replicafiles[i];
+			NodeInterface succNode = chordnode.findSuccessor(replicaId);
+			try {
+				if(succNode != null) {
+					Message metaData = succNode.getFilesMetadata(replicaId);
+					if(metaData != null) {
+						activeNodesforFile.add(metaData);
+					}else {
+						// Handle case where replicaID's metadata is not found on the peer
+						logger.error("Metadata for replica ID: " + replicaId + " not found on peer: " + succNode.getNodeName());
+					}
+				}
+
+			} catch (RemoteException e) {
+				throw new RuntimeException(e);
+			}
+
+		}
+
 		return activeNodesforFile;
 	}
 	
@@ -136,7 +180,7 @@ public class FileManager {
 	 * Find the primary server - Remote-Write Protocol
 	 * @return 
 	 */
-	public NodeInterface findPrimaryOfItem() {
+	public NodeInterface findPrimaryOfItem() throws RemoteException {
 
 		// Task: Given all the active peers of a file (activeNodesforFile()), find which is holding the primary copy
 		
@@ -147,8 +191,26 @@ public class FileManager {
 		// use the primaryServer boolean variable contained in the Message class to check if it is the primary or not
 		
 		// return the primary when found (i.e., use Util.getProcessStub to get the stub and return it)
+		Set<Message> activeNodes = requestActiveNodesForFile(filename);
+		NodeInterface primaryNode = null;
+
+
+		for(Message peer: activeNodes) {
+			if(peer.isPrimaryServer()) {
+				try {
+					int port = peer.getPort();
+					String fileId = peer.getNodeName();
+					primaryNode = Util.getProcessStub(fileId, port);
+					break;
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+
+			}
+
+		}
 		
-		return null; 
+		return primaryNode;
 	}
 	
     /**
